@@ -7,7 +7,9 @@ DEV_PATH = sys.argv[1]
 SITES_FILE = sys.argv[2]
 ARGS = sys.argv[3:]
 
+# Bash output colors
 GREEN = '\033[92m'
+RED = '\033[0;31m'
 END = '\033[0m'
 
 
@@ -48,14 +50,13 @@ try:
 
 # If it doesn't exist, install it
 except:
-    if yes_no(f'\n\nThe {GREEN}"inquirer"{END} package is not installed and is required for this script.\n\nWould you like to install it?'):
+    if yes_no(f'\n\nThe {GREEN}inquirer{END} package is not installed and is required for this script.\n\nWould you like to install it?'):
         from pip._internal import main as pipmain
         pipmain(['install', 'inquirer'])
-
         import inquirer
 
     else:
-        print('Cannot continue without the inquirer package.')
+        print(f'Cannot continue without the {RED}inquirer{END} package.')
         sys.exit(0)
 
 from inquirer.themes import GreenPassion
@@ -105,8 +106,6 @@ def add_environment():
     version = inquirer.prompt(questions, theme=GreenPassion())
     version = int(version['version'][-1])
 
-    print(f'!!! {version}')
-
     questions = [
       inquirer.Text('name', message="Enter Instance Name"),
       inquirer.Text('url', message="Enter API URL"),
@@ -141,12 +140,13 @@ def add_environment():
 def rem_environment():
     sites = read_sites()
     environment = list_sites(sites)
-    print(environment)
-    if yes_no(f'Are you sure you want to remove {GREEN}{environment}{END}?', 'no'):
-        api_url = sites[environment]['url']
+    # print(environment)
+    api_url = sites[environment]['url']
+    
+    if yes_no(f'Are you sure you want to remove {GREEN}{environment}{END} ({GREEN}{api_url}{END})?', 'no'):
         del sites[environment]
         write_sites(sites)
-        print(f'\nRemoved {GREEN}{api_url}{END}.\n')
+        print(f'\nRemoved {GREEN}{environment}{END}.\n')
 
     else:
         print('\nNo changes made.\n')
@@ -173,7 +173,8 @@ def set_environment(environment=None):
         api_id = sites[environment]['id']
 
     # Save the environment variables so the bash script can source them
-    with open(os.path.join(DEV_PATH, 'tmp.env'), 'w') as f:
+    with open(os.path.join(DEV_PATH, 'xsoar_dev.env'), 'w') as f:
+        f.write(f'export DEMISTO_DEV_NAME="{environment}"\n')
         f.write(f'export DEMISTO_BASE_URL="{api_url}"\n')
         f.write(f'export DEMISTO_API_KEY="{api_key}"\n')
 
@@ -189,18 +190,23 @@ def main():
         set_environment(None)
 
     else:
+        ARGS[0] = ARGS[0].lower()
+
         if ARGS[0] == 'add':
             add_environment()
 
         # Use 'del', 'rem', 'delete', or 'remove'
-        if ARGS[0][:3] in ['del', 'rem']:
+        elif ARGS[0][:3] in ['del', 'rem']:
             rem_environment()
 
         # Use 'det' or 'details'
-        if ARGS[0][:3] == 'det':
+        elif ARGS[0][:3] in ['inf', 'det']:
             print(f'API URL: {GREEN}{os.environ["DEMISTO_BASE_URL"]}{END}')
             print(f'API Key: {GREEN}{os.environ["DEMISTO_API_KEY"]}{END}')
             print(f'API ID:  {GREEN}{os.environ["XSIAM_AUTH_ID"]}{END}\n')
+
+        else:
+            print(F'Invalid argument: {RED}{ARGS[0]}{END}\n')
 
 
 main()

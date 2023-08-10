@@ -27,7 +27,7 @@ This is a collection of scripts to facilitate quickly switching between multiple
 		      printf "\n\nUsing ${GREEN}${DEMISTO_BASE_URL}${END} for demisto-sdk\n\n"
 		fi
 
-3. Load the commands (only required the first time you install this).
+3. Load the commands (only required the first time you install).
 
 		# For linux
 		source ~/.bashrc
@@ -39,10 +39,14 @@ This is a collection of scripts to facilitate quickly switching between multiple
 
 		demisto-src add
 
-5. Remove the sample development environment
+5. Remove the sample development environment (`rem`, `remove`, `del`, or `delete`)
 
 		demist-src rem
 
 6. Select your development environment
 
 		demisto-src
+
+7. Get the details of the currently selected development environment (`info`, `det` or `details`)
+
+		demisto-src info
