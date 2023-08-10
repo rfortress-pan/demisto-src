@@ -20,10 +20,4 @@ python -c "${PYCMD}" "${DEV_PATH}" "${SITES_FILE}" $1
 # The Python script creates an environment file. Source it.
 source ${DEV_PATH}/xsoar_dev.env
 
-# Remove the environment file.
-# rm ${DEV_PATH}/xsoar_dev.env
-
-GREEN='\033[0;32m'
-END='\033[0m'
-
 printf "\n ${GREEN}✔${END} Using ${GREEN}${DEMISTO_DEV_NAME}${END} for demisto-sdk\n\n"

@@ -41,7 +41,7 @@ def yes_no(question, default='yes'):
         elif choice in valid:
             return valid[choice]
         else:
-            sys.stdout.write('Please respond with "yes" or "no" ' '(or "y" or "n").\n')
+            sys.stdout.write(' {RED}！{END}Please respond with "yes" or "no" ' '(or "y" or "n").\n')
 
 
 # Import inquirer
@@ -56,7 +56,7 @@ except:
         import inquirer
 
     else:
-        print(f'Cannot continue without the {RED}inquirer{END} package.')
+        print(f' {RED}！{END}Cannot continue without the {RED}inquirer{END} package.')
         sys.exit(0)
 
 from inquirer.themes import GreenPassion
@@ -121,7 +121,7 @@ def add_environment():
     api_id = answers['id'] if version == 8 else None
 
     if api_name in sites:
-        print('\n\nSite name already exsists. Try again.')
+        print('\n\n {RED}！{END}Site name already exsists. Try again.')
         add_environment()
 
     else:
@@ -155,7 +155,7 @@ def rem_environment():
 def set_environment(environment=None):
     sites = read_sites()
     if sites == {}:
-        print(f'No environments exist. Use {GREEN}demisto-sdk add{END} to add a site.\n')
+        print(f' {RED}！{END}No environments exist. Use {GREEN}demisto-sdk add{END} to add a site.\n')
         sys.exit()
 
 
@@ -206,7 +206,7 @@ def main():
             print(f'API ID:  {GREEN}{os.environ["XSIAM_AUTH_ID"]}{END}\n')
 
         else:
-            print(F'Invalid argument: {RED}{ARGS[0]}{END}\n')
+            print(F' {RED}‼{END} Invalid argument: {RED}{ARGS[0]}{END}\n')
 
 
 main()

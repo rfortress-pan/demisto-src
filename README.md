@@ -16,15 +16,21 @@ This is a collection of scripts to facilitate quickly switching between multiple
 
 		alias demisto-src="source ~/.xsoar_dev/xsoar_dev.sh"
 
-		GREEN='\033[0;32m'
-		END='\033[0m'
+		export GREEN='\033[0;32m'
+		export RED='\033[0;31m'
+		export END='\033[0m'
 
-		# If DEMISTO_BASE_URL isn't set, let the user know. Otherwise output the URL that is defined.
-		if [ -z "$DEMIST_BASE_URL" ]
+		FILE=~/.xsoar_dev/xsoar_dev.env
+		if test -f "$FILE"
 		then
-		      printf "\n\nNo demisto-sdk enviroment is defined. Use ${GREEN}demisto-src${END} to select an environment.\n\n"
+		    source $FILE
+		fi
+
+		if [ -z "$DEMISTO_BASE_URL" ]
+		then
+		      printf "\n ${RED}！${END}No demisto-sdk enviroment is defined. Use ${GREEN}demisto-src${END} to select an environment.\n\n"
 		else
-		      printf "\n\nUsing ${GREEN}${DEMISTO_BASE_URL}${END} for demisto-sdk\n\n"
+		      printf "\n ${GREEN}✔${END} Using ${GREEN}${DEMISTO_DEV_NAME}${END} for demisto-sdk\n\n"
 		fi
 
 3. Load the commands (only required the first time you install).
