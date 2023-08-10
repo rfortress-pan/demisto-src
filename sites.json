@@ -1,0 +1,7 @@
+{
+    "XSOAR INSTANCE NAME HERE": {
+        "url": "XSOAR URL HERE",
+        "key": "XSOAR API KEY HERE",
+        "id": "OPTIONAL ID. USED FOR XSOAR 8 ONLY"
+    }
+}
