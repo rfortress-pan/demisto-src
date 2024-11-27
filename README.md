@@ -10,7 +10,7 @@ This is a collection of scripts to facilitate quickly switching between multiple
 
 1. Save the scripts to your `~/.xsoar_dev` folder
 		
-		git pull https://github.com/rfortress-pan/demisto-src.git ~/.xsoar_dev
+		git clone https://github.com/rfortress-pan/demisto-src.git ~/.xsoar_dev
 
 2. Add the following commands to your `~/.bashrc` (Linux) or `~/.zshrc` (MacOS) files
 
