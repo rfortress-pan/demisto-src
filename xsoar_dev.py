@@ -51,7 +51,14 @@ try:
 # If it doesn't exist, install it
 except:
     if yes_no(f'\n\nThe {GREEN}inquirer{END} package is not installed and is required for this script.\n\nWould you like to install it?'):
-        from pip._internal import main as pipmain
+        # Try to import pip to install inquirer
+        try:
+            from pip._internal import main as pipmain
+        
+        # Pip isn't installed. We need pip for this.
+        except ImportError:
+            raise Exception('Pip is not installed. Please install pip first.')
+
         pipmain(['install', 'inquirer'])
         import inquirer
 
