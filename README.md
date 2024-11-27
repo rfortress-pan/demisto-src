@@ -12,26 +12,9 @@ This is a collection of scripts to facilitate quickly switching between multiple
 		
 		git clone https://github.com/rfortress-pan/demisto-src.git ~/.xsoar_dev
 
-2. Add the following commands to your `~/.bashrc` (Linux) or `~/.zshrc` (MacOS) files
+2. Add [`bashrc_include.sh`](https://github.com/rfortress-pan/demisto-src/blob/main/bashrc_include.sh) to `~/.bashrc` (Linux). Change to `~/.zshrc` for MacOS.
 
-		alias demisto-src="source ~/.xsoar_dev/xsoar_dev.sh"
-
-		export GREEN='\033[0;32m'
-		export RED='\033[0;31m'
-		export END='\033[0m'
-
-		FILE=~/.xsoar_dev/xsoar_dev.env
-		if test -f "$FILE"
-		then
-		    source $FILE
-		fi
-
-		if [ -z "$DEMISTO_BASE_URL" ]
-		then
-		      printf "\n ${RED}！${END}No demisto-sdk enviroment is defined. Use ${GREEN}demisto-src${END} to select an environment.\n\n"
-		else
-		      printf "\n ${GREEN}✔${END} Using ${GREEN}${DEMISTO_DEV_NAME}${END} for demisto-sdk\n\n"
-		fi
+		echo "source ~/.xsoar_dev/bashrc_include.sh" >> ~/.bashrc
 
 3. Load the commands (only required the first time you install).
 
